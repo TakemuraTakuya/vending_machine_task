@@ -1,3 +1,4 @@
-test = ["コーラ",120]
+drink = ["コーラ",120]
 
-p test * 5
+pp @test = Array.new(5,drink)
+

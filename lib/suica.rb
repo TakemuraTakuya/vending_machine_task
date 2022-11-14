@@ -1,8 +1,4 @@
-class Suica
-
-  def initialize
-    @have_money = 0
-  end
+modlue SuicaModule
 
   def suica_charge(money)
     money >= 100 ? (@have_money += money; "#{money}円をチャージしました") : "#{money}円はチャージできません"
