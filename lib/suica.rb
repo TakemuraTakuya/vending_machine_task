@@ -1,6 +1,8 @@
 require 'pry'
 
 class Suica 
+  attr_reader :have_money
+
   def initialize
     @have_money = 0
   end
@@ -12,7 +14,7 @@ class Suica
     money = gets.to_i
     
     if money >= 100
-      @have_money = money
+      @have_money += money
       puts "#{@have_money}円チャージしました!"
 
     else 
@@ -20,10 +22,15 @@ class Suica
         puts "注意: 100円以上の金額をチャージしてください!"
         money = gets.to_i
         if money >= 100
-          @have_money = money 
+          @have_money += money 
           puts "#{@have_money}円チャージしました!"
         end
       end
     end
   end
+
+  def user
+    
+  end
 end
+

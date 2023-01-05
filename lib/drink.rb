@@ -1,13 +1,9 @@
-
 class Drink
-  DRINK_LIST = {"coke" => 120, "water" => 100, "redbule" => 210}
+  attr_reader :name , :price
 
-  def initialize(name)
+  def initialize(name,price)
     @name = name
-    @price = DRINK_LIST[name]
+    @price = price
   end
 
-  def self.how_many(drink_name)
-      DRINK_LIST[drink_name] ? DRINK_LIST[name] : puts "その商品は登録されていません"
-  end
 end
