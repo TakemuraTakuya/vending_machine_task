@@ -3,7 +3,8 @@ require_relative "drink"
 class Vending_Machine
   attr_accessor :sale, :stock
 
-  def initialize
+  def initialize(money:)
+    @money = money
     @sale = 0 
     @stock = []
     
@@ -22,22 +23,22 @@ class Vending_Machine
   }
   end
 
-  def purchase(money:)
+  def purchase
     choice = gets.to_i
 
     price_list  = {1 => 120, 2 => 100, 3 => 200}
     drink_list = {1 => "コーラ", 2 => "水", 3 => "レッドブル"}
 
     if choice <= 3
-      if price_list[choice] <= money && @stock.count{|n|n.name == drink_list[choice]} > 0
+      if price_list[choice] <= @money && @stock.count{|n|n.name == drink_list[choice]} > 0
         @sale += price_list[choice]
-        money -= price_list[choice]
+        @money -= price_list[choice]
 
-        #@stockの中からselectで選択したdrinkをひとつ消す => 在庫を減らす。
-        @stock.select!{|n| n.name == drink_list[choice]}.shift()
+        #find_indexで該当するdrinkの最初の位置を出し、それをdelete_atに渡して在庫を減らす。
+        @stock.delete_at(@stock.find_index{|n| n.name == drink_list[choice]})
 
         puts "#{drink_list[choice]}を１本購入しました！"
-        puts "suicaのチャージ残高は#{money}円です"
+        puts "suicaのチャージ残高は#{@money}円です"
 
       else
         puts "在庫がありません"
@@ -61,13 +62,11 @@ class Vending_Machine
 
     choice = gets.to_i
 
-    if choice <= 2
+    if choice <= 2 
       for num in 1..5 do
         drinks = Drink.new(drink_list[choice],price_list[choice])
         @stock << drinks
       end
-
-      puts "#{drink_list[choice]}を5本追加しました!"
 
     else
       puts "追加できません"
