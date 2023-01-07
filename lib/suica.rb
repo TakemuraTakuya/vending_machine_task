@@ -1,7 +1,8 @@
 require 'pry'
+require_relative 'user'
 
 class Suica 
-  attr_reader :have_money
+  attr_reader :have_money :user_list
 
   def initialize
     @have_money = 0
@@ -30,7 +31,24 @@ class Suica
   end
 
   def user
-    
+    @user_list = []
+    puts "suicaが未登録です"
+    puts "ユーザー登録をしましょう。"
+
+    puts "年齢を入力してください"
+    age_input = gets.to_i
+    #suicaの利用は公式では１２歳からなので12歳以上１００歳までを条件指定。
+    until age_input >=12 && age_input <= 100
+      puts "年齢は12歳以上でないと登録できません"
+      puts "もう一度入力してください。"
+
+      age_input = gets.to_i
+
+      if age_input >= 12 && age_input <= 100
+        
+
+      end
+    end
   end
 end
 
