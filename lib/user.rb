@@ -1,7 +1,7 @@
 class User
-  attr_accessor :age, :sex
-  def initialize
+  attr_reader :age, :gender
+  def initialize(age,gender)
     @age = age
-    @sex = sex
+    @gender = gender
   end
 end
