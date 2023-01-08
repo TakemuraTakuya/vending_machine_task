@@ -5,6 +5,7 @@ require_relative "vending_machine"
 
 suica = Suica.new
 
+suica.entry_user
 suica.chage_money
 money = suica.have_money
 
@@ -25,4 +26,5 @@ machine.purchase
 
 #売上の管理
 machine.sale_log
+
 
