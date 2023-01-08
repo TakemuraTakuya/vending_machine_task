@@ -74,7 +74,7 @@ class Vending_Machine
 
   end
   
-  def sale_log
+  def self.sale_log()
     
   end
 end
