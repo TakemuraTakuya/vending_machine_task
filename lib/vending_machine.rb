@@ -1,13 +1,16 @@
 require_relative "drink"
 
 class Vending_Machine
-  attr_accessor :sale, :stock
+  attr_reader :sale, :stock ,:sale_log
 
-  def initialize(money:)
+  def initialize(money:, user_age: ,user_gender:)
     @money = money
-    @sale = 0 
+    @user_age = user_age
+    @user_gender = user_gender
+    @sale = 0
     @stock = []
-    
+    @sale_log = []
+
     for num in 1..5 do
       cokes = Drink.new("コーラ",120)
       @stock << cokes
@@ -33,6 +36,10 @@ class Vending_Machine
       if price_list[choice] <= @money && @stock.count{|n|n.name == drink_list[choice]} > 0
         @sale += price_list[choice]
         @money -= price_list[choice]
+
+        #購入されたタイミングで日時とsuicaの登録ユーザーの年齢と性別を空の配列の中に保存する
+        time = Time.now
+        @sale_log << Array[time, @user_age, @user_gender]
 
         #find_indexで該当するdrinkの最初の位置を出し、それをdelete_atに渡して在庫を減らす。
         @stock.delete_at(@stock.find_index{|n| n.name == drink_list[choice]})
@@ -74,8 +81,5 @@ class Vending_Machine
 
   end
   
-  def self.sale_log()
-    
-  end
 end
 
