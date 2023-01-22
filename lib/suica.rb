@@ -1,56 +1,17 @@
 require 'pry'
 require_relative 'user'
-
-#userの登録する処理が重複していたのでmodule化
-module Entryrules
-  def rules(age)
-    puts "次に性別を１か２で選択してください"
-
-    gender_list = ["男性","女性"]
-    gender_list.each.with_index(1){|n, i|
-      puts "#{i}. #{n}"
-    }
-    select_gender = {1 => "男性", 2 => "女性"}
-
-    choice= gets.to_i
-
-    if choice <= 2
-      user = User.new(age,select_gender[choice])
-      @user_age = user.age
-      @user_gender = user.gender
-
-      puts "#{user.age}歳 #{user.gender} で登録が完了しました"
-    else
-      until choice <= 2
-        puts "注意:性別は「１」または「２」で半角数字で入力してください"
-        choice = gets.to_i
-        
-        if choice <= 2
-          user = User.new(age,select_gender[choice])
-          @user_age = user.age
-          @user_gender = user.gender
-
-          puts "#{user.age}歳 #{user.gender} で登録が完了しました"
-        end
-      end
-    end
-  end
-end
+require_relative 'entry_rules'
 
 class Suica 
   attr_reader :have_money ,:user_age ,:user_gender
-  include Entryrules
+  include EntryRules
 
   def initialize
     @have_money = 0
   end
 
-  def chage_money
-    puts "suicaのチャージ残高は#{@have_money}円です"
-    puts "100円以上の金額をチャージしてください"
+  def chage_money(money:)
 
-    money = gets.to_i
-    
     if money >= 100
       @have_money += money
       puts "#{@have_money}円チャージしました!"
@@ -67,13 +28,7 @@ class Suica
     end
   end
 
-  def entry_user
-    puts "suicaが未登録です"
-    puts "ユーザー登録をしましょう。"
-
-    puts "年齢を入力してください"
-    age= gets.to_i
-
+  def entry_user(age:)
     #suicaの利用は公式では１２歳からなので12歳以上１００歳までを条件指定。
     if age >= 12 && age <= 100
       rules(age)
