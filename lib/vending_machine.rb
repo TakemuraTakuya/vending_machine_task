@@ -38,7 +38,8 @@ class Vending_Machine
 
         #購入されたタイミングで日時とsuicaの登録ユーザーの年齢と性別を空の配列の中に保存する
         time = Time.now
-        @sale_log << Array[time, drink_list[choice],@user_age, @user_gender]
+        sale_date = [time, drink_list[choice],@user_age, @user_gender]
+        @sale_log << sale_date
 
         #find_indexで該当するdrinkの最初の位置を出し、それをdelete_atに渡して在庫を減らす。
         @stock.delete_at(@stock.find_index{|n| n.name == drink_list[choice]})
